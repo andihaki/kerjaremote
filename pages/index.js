@@ -3,8 +3,9 @@ import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import { JobContext } from '../context/JobContext'
 import { minifyRecordList, table } from './api/utils/Airtable'
+import auth0 from './api/utils/auth0'
 
-export default function Home({ initJobList }) {
+export default function Home({ initJobList, user }) {
   const { jobList, setJobList } = useContext(JobContext);
 
   useEffect(() => {
@@ -28,12 +29,15 @@ export default function Home({ initJobList }) {
 }
 
 export async function getServerSideProps(context) {
+  const session = await auth0.getSession(context.req);
+
   try {
     const initJobList = await table.select({}).firstPage();
   
     return {
       props: {
-        initJobList: minifyRecordList(initJobList)
+        initJobList: minifyRecordList(initJobList),
+        user: session?.user || null,
       }
     }
   } catch (err) {
