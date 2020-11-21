@@ -47,13 +47,14 @@ export default function Home({ initJobList, user }) {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   console.log(context)
 
   try {
     const initJobList =  [];
     const res = await fetch('http://localhost:3000/api/job-list');
     const latestJobList = await res.json();
+    console.log(latestJobList)
   
     return {
       props: {
