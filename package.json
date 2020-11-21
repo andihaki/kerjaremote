@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^0.16.0",
-    "airtable": "^0.10.1",
     "mongodb": "^3.6.3",
     "next": "10.0.0",
     "postcss-preset-env": "^6.7.0",

@@ -48,8 +48,6 @@ export default function Home({ initJobList, user }) {
 }
 
 export async function getServerSideProps(context) {
-  console.log(context)
-
   try {
     const initJobList =  [];
     const res = await fetch('http://localhost:3000/api/job-list');
