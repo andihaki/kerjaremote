@@ -1,17 +1,18 @@
-import { Fragment, useContext, useEffect, useState } from 'react'
+import { Fragment, useContext, useEffect } from 'react'
 import ReactMarkdown from "react-markdown";
 import Head from 'next/head'
 import Navbar from '../components/Navbar'
 import { JobContext } from '../context/JobContext'
+import { minifyRecordList, table } from './api/z_unused/utils/Airtable'
+import auth0 from './api/utils/auth0'
 
 export default function Home({ initJobList, user }) {
   const { jobList, setJobList } = useContext(JobContext);
-  const [jobs, setJobs] = useState([])
-
-  // console.log(jobList, initJobList)
   useEffect(() => {
-    setJobs(initJobList || jobList)
-  })
+    setJobList(initJobList)
+  }, []);
+
+  console.log(jobList)
 
   return (
     <div>
@@ -24,20 +25,20 @@ export default function Home({ initJobList, user }) {
 
       <main className="container mx-auto my-10 max-w-xl">
         <h1 className="text-2xl text-center mb-4">List Pekerjaan</h1>
-        {jobs.map((job, index) => {
-          const { logo, companyName, jobDescription, jobTitle, url } = job;
+        {jobList.map((job, index) => {
+          const { fields: { companyIcon, companyName, jobDescription, jobTitle, applyUrl } } = job;
           return (
             <div key={index} className="p-4 pt-4 mb-8 rounded overflow-hidden shadow-lg">
               <div className="flex items-center">
-                <img src={logo} alt={companyName} className="p-2 w-16 h-16 rounded-full mr-4" />
+                <img src={companyIcon} alt={companyName} className="p-2 w-16 h-16 rounded-full mr-4" />
                 <div>
                   <div>{jobTitle}</div>
                   <div>{companyName}</div>
                 </div>
               </div>
               <ReactMarkdown source={jobDescription} />
-              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => url && window.open(url, '_blank')}>
-                {url ? 'Apply' : 'Closed'}
+              <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => applyUrl && window.open(applyUrl, '_blank')}>
+                {applyUrl ? 'Apply' : 'Closed'}
               </button>
             </div>
           )
@@ -47,19 +48,25 @@ export default function Home({ initJobList, user }) {
   )
 }
 
+/**
+ * GetStaticProps, only run at build time. but because using 
+ * @param {context} context 
+ */
 export async function getStaticProps(context) {
-  console.log(context)
+  const session = {};
 
   try {
-    const initJobList =  [];
-    const res = await fetch('http://localhost:3000/api/job-list');
-    const latestJobList = await res.json();
+    const initJobList = await table.select({}).firstPage();
   
     return {
       props: {
-        initJobList: latestJobList || initJobList,
+        initJobList: minifyRecordList(initJobList),
+        user: session?.user || null,
       },
-      revalidate: 1, 
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every second
+      revalidate: 1, // In seconds
     }
   } catch (err) {
     console.error(err);
