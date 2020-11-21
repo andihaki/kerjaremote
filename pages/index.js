@@ -60,7 +60,6 @@ export async function getServerSideProps(context) {
       props: {
         initJobList: latestJobList || initJobList,
       },
-      revalidate: 1, 
     }
   } catch (err) {
     console.error(err);
