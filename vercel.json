@@ -1,7 +1,7 @@
 {
-  "name": "my-mongodb-api",
+  "name": "kerja-remote",
   "version": 2,
   "env": {
-    "MONGODB_URI": "@my-mongodb-uri"
+    "MONGODB_URI": "@kerja-remote"
   }
 }
