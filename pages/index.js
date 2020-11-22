@@ -50,7 +50,7 @@ export default function Home({ initJobList, user }) {
 export async function getServerSideProps(context) {
   try {
     const initJobList =  [];
-    const res = await fetch('https://kerjaremote/api/job-list');
+    const res = await fetch(`${process.env.HOSTNAME}/api/job-list`);
     const latestJobList = await res.json();
     console.log(latestJobList)
   
