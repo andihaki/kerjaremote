@@ -8,9 +8,9 @@ export default function Home({ initJobList, user }) {
   const { jobList, setJobList } = useContext(JobContext);
   const [jobs, setJobs] = useState([])
 
-  // console.log(jobList, initJobList)
+  console.log({jobList, initJobList, hostname: process.env.HOSTNAME})
   useEffect(() => {
-    setJobs(initJobList || jobList)
+    setJobs(initJobList?.length ? initJobList : jobList)
   })
 
   return (
@@ -52,7 +52,7 @@ export async function getServerSideProps(context) {
     const initJobList =  [];
     const res = await fetch(`${process.env.HOSTNAME}/api/job-list`);
     const latestJobList = await res.json();
-    console.log(latestJobList)
+    console.log({latestJobList})
   
     return {
       props: {
