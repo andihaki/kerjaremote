@@ -309,7 +309,7 @@ export default function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("http://sumberbarokah.info/heri/Tobby.jpg")}
+                    src="http://sumberbarokah.info/heri/Tobby.jpg"
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -338,7 +338,7 @@ export default function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("http://sumberbarokah.info/heri/heri.jpg")}
+                    src="http://sumberbarokah.info/heri/heri.jpg"
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -373,7 +373,7 @@ export default function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("http://sumberbarokah.info/heri/Fauzi.jpg")}
+                    src="http://sumberbarokah.info/heri/Fauzi.jpg"
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
