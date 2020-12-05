@@ -3,10 +3,13 @@ import ReactMarkdown from "react-markdown";
 import Head from 'next/head'
 import Navbar from "components/Navbars/AuthNavbar.js";
 import { JobContext } from '../context/JobContext'
+import auth0 from './api/utils/auth0';
 
-export default function Home({ initJobList, user }) {
+export default function Home({ initJobList, user, auth }) {
   const { jobList, setJobList } = useContext(JobContext);
   const [jobs, setJobs] = useState([])
+
+  console.log({ auth });
 
   console.log({jobList, initJobList, hostname: process.env.HOSTNAME})
   useEffect(() => {
@@ -44,6 +47,12 @@ export default function Home({ initJobList, user }) {
                   <h1 className="text-white font-semibold text-5xl">
                     List Pekerjaan
                   </h1>
+                  <a
+                        href="/api/login"
+                        className=" rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
+                    >
+                        Login
+                  </a>
                   <p className="mt-4 text-lg text-gray-300">
                   </p>
                 </div>
@@ -95,6 +104,8 @@ export default function Home({ initJobList, user }) {
 }
 
 export async function getServerSideProps(context) {
+  const session = await auth0.getSession(context.req);
+  
   try {
     const initJobList =  [];
     const res = await fetch(`${process.env.HOSTNAME}/api/job-list`);
@@ -104,6 +115,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         initJobList: latestJobList || initJobList,
+        auth: session
       },
     }
   } catch (err) {
