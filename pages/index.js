@@ -309,11 +309,11 @@ export default function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("assets/img/team-2-800x800.jpg")}
+                    src={require("http://sumberbarokah.info/heri/Tobby.jpg")}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Romina Hadid</h5>
+                    <h5 className="text-xl font-bold">Arna Tobby</h5>
                     <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
                       Marketing Specialist
                     </p>
@@ -338,7 +338,7 @@ export default function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("assets/img/team-3-800x800.jpg")}
+                    src={require("http://sumberbarokah.info/heri/heri.jpg")}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -373,11 +373,11 @@ export default function Landing() {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("assets/img/team-4-470x470.png")}
+                    src={require("http://sumberbarokah.info/heri/Fauzi.jpg")}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
-                    <h5 className="text-xl font-bold">Jenna Kardi</h5>
+                    <h5 className="text-xl font-bold">Fauzi Tri Musyafa</h5>
                     <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
                       Founder and CEO
                     </p>
