@@ -9,12 +9,30 @@ export default function Home({ initJobList, user, auth }) {
   const { jobList, setJobList } = useContext(JobContext);
   const [jobs, setJobs] = useState([])
 
-  console.log({ auth });
+  const isLogin = auth?.user?.nickname;
 
   console.log({jobList, initJobList, hostname: process.env.HOSTNAME})
   useEffect(() => {
     setJobs(initJobList?.length ? initJobList : jobList)
   })
+  
+  const renderButton = (url) => {
+    if (!isLogin) {
+      return (
+        <a
+          href="/api/login"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Login to Apply
+        </a>
+      )
+    }
+    return (
+      <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => url && window.open(url, '_blank')}>
+        {url ? `Apply` : 'Closed'}
+      </button>
+    )
+  }
 
   return (
     <div>
@@ -23,7 +41,7 @@ export default function Home({ initJobList, user, auth }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
+      <Navbar isLogin={isLogin} />
 
       <main className="container mx-auto my-10 max-w-xl">
       {/* <main> */}
@@ -47,12 +65,7 @@ export default function Home({ initJobList, user, auth }) {
                   <h1 className="text-white font-semibold text-5xl">
                     List Pekerjaan
                   </h1>
-                  <a
-                        href="/api/login"
-                        className=" rounded bg-blue-500 hover:bg-blue-600 text-white py-2 px-4"
-                    >
-                        Login
-                  </a>
+
                   <p className="mt-4 text-lg text-gray-300">
                   </p>
                 </div>
@@ -91,10 +104,10 @@ export default function Home({ initJobList, user, auth }) {
                   <div>{companyName}</div>
                 </div>
               </div>
-              <ReactMarkdown source={jobDescription} />
-              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => url && window.open(url, '_blank')}>
-                {url ? 'Apply' : 'Closed'}
-              </button>
+              <div className="mb-4">
+                <ReactMarkdown source={jobDescription} />
+              </div>
+              {renderButton(url)}
             </div>
           )
         })}

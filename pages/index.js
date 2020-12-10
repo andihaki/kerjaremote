@@ -6,10 +6,14 @@ import Link from "next/link";
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
-export default function Landing() {
+import auth0 from './api/utils/auth0';
+
+export default function Landing({ auth }) {
+  const isLogin = auth?.user?.nickname;
+
   return (
     <>
-      <Navbar transparent />
+      <Navbar transparent isLogin={isLogin} />
       <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
@@ -561,4 +565,24 @@ export default function Landing() {
       <Footer />
     </>
   );
+}
+
+
+export async function getServerSideProps(context) {
+  const session = await auth0.getSession(context.req);
+  
+  try {
+    return {
+      props: {
+        auth: session
+      },
+    }
+  } catch (err) {
+    console.error(err);
+    return {
+      props: {
+        err: "Ada kesalahan, biar kami bereskan"
+      }
+    }
+  }
 }
