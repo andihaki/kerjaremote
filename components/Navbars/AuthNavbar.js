@@ -6,6 +6,7 @@ import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
 
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
+  const isLogin = props?.isLogin;
   return (
     <>
       <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
@@ -36,8 +37,9 @@ export default function Navbar(props) {
           >
             <ul className="flex flex-col lg:flex-row list-none mr-auto">
               <li className="flex items-center">
-                <Link href="/job-list">
+                <Link href="/job-list" className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
                   <a
+                    href="/job-list"
                     className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   >
                     <i className="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2" />{" "}
@@ -45,11 +47,36 @@ export default function Navbar(props) {
                   </a>
                 </Link>
               </li>
+              
             </ul>
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
+              {isLogin ? (
+                <li className="flex items-center">
+                  <Link href="/profile">
+                    <a
+                      href="/profile"
+                      className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                    >
+                      <i className="lg:text-gray-300 text-gray-500 far fa-user text-lg leading-lg mr-2" />{" "}
+                      Profile
+                    </a>
+                  </Link>
+                </li>
+              ) : ''}
               <li className="flex items-center">
-                <PagesDropdown />
+                <Link href={`api/${isLogin ? 'logout' : 'login'}`}>
+                  <a
+                    href={`api/${isLogin ? 'logout' : 'login'}`}
+                    className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                  >
+                    <i className={`lg:text-gray-300 text-gray-500 ${isLogin ? 'fas fa-sign-out-alt' : 'fas fa-sign-in-alt' } text-lg leading-lg mr-2`} />{" "}
+                    {isLogin ? 'Logout' : 'Login'}
+                  </a>
+                </Link>
               </li>
+              {/* <li className="flex items-center">
+                <PagesDropdown />
+              </li> */}
               {/* <li className="flex items-center">
                 <a
                   className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"

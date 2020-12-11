@@ -5,8 +5,8 @@ export default initAuth0({
   clientId: process.env.AUTH0_CLIENT_ID,
   clientSecret: process.env.AUTH0_SECRET,
   scope: 'openid profile',
-  redirectUri: 'http://localhost:3000/api/callback',
-  postLogoutRedirectUri: 'http://localhost:3000/',
+  redirectUri: process.env.AUTH0_REDIRECT_URI || 'https://kerjaremote.vercel.app/api/callback',
+  postLogoutRedirectUri: process.env.AUTH0_HOME || 'https://kerjaremote.vercel.app',
   session: {
     // The secret used to encrypt the cookie.
     cookieSecret: process.env.COOKIE_SECRET,
@@ -25,7 +25,7 @@ export default initAuth0({
   },
   oidcClient: {
     // (Optional) Configure the timeout in milliseconds for HTTP requests to Auth0.
-    httpTimeout: 2500,
+    httpTimeout: 5000,
     // (Optional) Configure the clock tolerance in milliseconds, if the time on your server is running behind.
     clockTolerance: 10000
   }

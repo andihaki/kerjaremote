@@ -3,15 +3,36 @@ import ReactMarkdown from "react-markdown";
 import Head from 'next/head'
 import Navbar from "components/Navbars/AuthNavbar.js";
 import { JobContext } from '../context/JobContext'
+import auth0 from './api/utils/auth0';
 
-export default function Home({ initJobList, user }) {
+export default function Home({ initJobList, user, auth }) {
   const { jobList, setJobList } = useContext(JobContext);
   const [jobs, setJobs] = useState([])
 
-  console.log({jobList, initJobList, hostname: process.env.HOSTNAME})
+  const isLogin = auth?.user?.nickname;
+
+  console.log({jobList, initJobList, hostname: process.env.HOSTNAME, auth })
   useEffect(() => {
     setJobs(initJobList?.length ? initJobList : jobList)
   })
+  
+  const renderButton = (url) => {
+    if (!isLogin) {
+      return (
+        <a
+          href="/api/login"
+          className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Login to Apply
+        </a>
+      )
+    }
+    return (
+      <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => url && window.open(url, '_blank')}>
+        {url ? `Apply` : 'Closed'}
+      </button>
+    )
+  }
 
   return (
     <div>
@@ -20,7 +41,7 @@ export default function Home({ initJobList, user }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar />
+      <Navbar isLogin={isLogin} />
 
       <main className="container mx-auto my-10 max-w-xl">
       {/* <main> */}
@@ -44,6 +65,7 @@ export default function Home({ initJobList, user }) {
                   <h1 className="text-white font-semibold text-5xl">
                     List Pekerjaan
                   </h1>
+
                   <p className="mt-4 text-lg text-gray-300">
                   </p>
                 </div>
@@ -82,10 +104,10 @@ export default function Home({ initJobList, user }) {
                   <div>{companyName}</div>
                 </div>
               </div>
-              <ReactMarkdown source={jobDescription} />
-              <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => url && window.open(url, '_blank')}>
-                {url ? 'Apply' : 'Closed'}
-              </button>
+              <div className="mb-4">
+                <ReactMarkdown source={jobDescription} />
+              </div>
+              {renderButton(url)}
             </div>
           )
         })}
@@ -95,15 +117,18 @@ export default function Home({ initJobList, user }) {
 }
 
 export async function getServerSideProps(context) {
+  const session = await auth0.getSession(context.req);
+  
   try {
     const initJobList =  [];
     const res = await fetch(`${process.env.HOSTNAME}/api/job-list`);
     const latestJobList = await res.json();
-    console.log({latestJobList})
+    // console.log({latestJobList})
   
     return {
       props: {
         initJobList: latestJobList || initJobList,
+        auth: session
       },
     }
   } catch (err) {
