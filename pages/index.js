@@ -278,13 +278,13 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src="https://instagram.ftkg1-1.fna.fbcdn.net/v/t51.2885-19/s320x320/26872528_151225312326862_8310675925788262400_n.jpg?_nc_ht=instagram.ftkg1-1.fna.fbcdn.net&_nc_cat=110&_nc_ohc=B5IxKBRfBQ4AX8Mjspp&tp=1&oh=050814908e35bc0dea52cb26312a20ce&oe=5FE50EB7"
+                    src={require("public/team/Andi-Hakim-Arif.jpg")}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Andi Hakim Arif</h5>
                     <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                      CTO
+                      CTO, Founder
                     </p>
                     <div className="mt-6">
                       <button
@@ -313,8 +313,8 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src="http://sumberbarokah.info/heri/Tobby.jpg"
-                    className="shadow-lg rounded-full mx-auto max-w-120-px"
+                    src={require("public/team/Arna-Tobby.jpeg")}
+                    className="shadow-lg rounded-full mx-auto max-w-120-px min-w-120-px"
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Arna Tobby</h5>
@@ -342,7 +342,7 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src="http://sumberbarokah.info/heri/heri.jpg"
+                    src={require("public/team/Herianto-Saputra.jpg")}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -377,13 +377,13 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src="http://sumberbarokah.info/heri/Fauzi.jpg"
+                    src={require("public/team/Fauzi-Tri-Musyafa.jpg")}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
                     <h5 className="text-xl font-bold">Fauzi Tri Musyafa</h5>
                     <p className="mt-1 text-sm text-gray-500 uppercase font-semibold">
-                      Founder and CEO
+                      CEO
                     </p>
                     <div className="mt-6">
                       <button
