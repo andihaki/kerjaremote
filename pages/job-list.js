@@ -11,7 +11,7 @@ export default function Home({ initJobList, user, auth }) {
 
   const isLogin = auth?.user?.nickname;
 
-  console.log({jobList, initJobList, hostname: process.env.HOSTNAME})
+  console.log({jobList, initJobList, hostname: process.env.HOSTNAME, auth })
   useEffect(() => {
     setJobs(initJobList?.length ? initJobList : jobList)
   })
@@ -123,7 +123,7 @@ export async function getServerSideProps(context) {
     const initJobList =  [];
     const res = await fetch(`${process.env.HOSTNAME}/api/job-list`);
     const latestJobList = await res.json();
-    console.log({latestJobList})
+    // console.log({latestJobList})
   
     return {
       props: {
