@@ -8,16 +8,48 @@ import auth0 from './api/utils/auth0';
 export default function Home({ initJobList, user, auth }) {
   const { jobList, setJobList } = useContext(JobContext);
   const [jobs, setJobs] = useState([])
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const isLogin = auth?.user?.nickname;
   const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit')|| auth?.user?.username?.includes('name');
+  const username = auth?.user?.nickname || auth?.user?.name;
 
   console.log({jobList, initJobList, hostname: process.env.HOSTNAME, auth })
   useEffect(() => {
     setJobs(initJobList?.length ? initJobList : jobList)
   })
+
+  const handleSubmit = (evt, job) => {
+    // https://stackoverflow.com/questions/54147290/nextjs-form-data-isnt-sent-to-the-express-server/54148262
+    evt.preventDefault();
+    // return console.log(evt.target)
+    
+    //making a post request with the fetch API
+    return fetch('/api/db/apply-job', {
+      method: 'POST',
+      headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify({
+           ...job,
+           username,
+         })
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error))
+      .finally(() => {
+        setIsSubmit(true)
+        if (job.url) {
+          window.open(job.url, '_blank')
+        } else {
+          Router.push('/')
+        }
+      })
+  };
   
-  const renderButton = (url) => {
+  const renderButton = (url, job) => {
     if (!isLogin) {
       return (
         <a
@@ -29,7 +61,7 @@ export default function Home({ initJobList, user, auth }) {
       )
     }
     return (
-      <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={() => url && window.open(url, '_blank')}>
+      <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" onClick={(e) => handleSubmit(e, job)}>
         {url ? `Apply` : 'Closed'}
       </button>
     )
@@ -108,7 +140,7 @@ export default function Home({ initJobList, user, auth }) {
               <div className="mb-4">
                 <ReactMarkdown source={jobDescription} />
               </div>
-              {renderButton(url)}
+              {renderButton(url, job)}
             </div>
           )
         })}

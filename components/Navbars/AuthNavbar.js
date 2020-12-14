@@ -55,13 +55,25 @@ export default function Navbar(props) {
                       href="/post-job"
                       className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                     >
-                      <i className="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2" />{" "}
+                      <i className="lg:text-gray-300 text-gray-500 far fa-paper-plane text-lg leading-lg mr-2" />{" "}
                       Posting Pekerjaan Baru
                     </a>
                   </Link>
                 </li>
 
               ) : ''}
+
+              <li className="flex items-center">
+                <Link href="/search-user" className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+                  <a
+                    href="/search-user"
+                    className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                  >
+                    <i className="lg:text-gray-300 text-gray-500 fas fa-search text-lg leading-lg mr-2" />{" "}
+                    Cari User
+                  </a>
+                </Link>
+              </li>
               
             </ul>
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
@@ -79,9 +91,9 @@ export default function Navbar(props) {
                 </li>
               ) : ''}
               <li className="flex items-center">
-                <Link href={`api/${isLogin ? 'logout' : 'login'}`}>
+                <Link href={`/api/${isLogin ? 'logout' : 'login'}`}>
                   <a
-                    href={`api/${isLogin ? 'logout' : 'login'}`}
+                    href={`/api/${isLogin ? 'logout' : 'login'}`}
                     className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   >
                     <i className={`lg:text-gray-300 text-gray-500 ${isLogin ? 'fas fa-sign-out-alt' : 'fas fa-sign-in-alt' } text-lg leading-lg mr-2`} />{" "}

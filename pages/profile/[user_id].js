@@ -1,16 +1,60 @@
-import React from "react";
+import React, { useState } from "react";
 
+import { useRouter } from 'next/router'
 import Navbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footers/Footer.js";
 
-import auth0 from './api/utils/auth0';
+import auth0 from '../api/utils/auth0';
 
-export default function Profile({ auth }) {
-  console.log({ auth });
+export default function Profile({ auth, currentUser, connected_user }) {
+  // console.log({ auth, currentUser });
+  console.log(connected_user)
+  console.log(currentUser)
+  console.log('@@@ connect user')
+
+  const router = useRouter()
+  const { user_id } = router.query;
+
+  const findUser = connected_user?.findIndex(item => item.following.user_id === currentUser?.user?.sub)
+  const friends = connected_user?.length;
+  const [isConnect, setIsConnect] = useState(findUser >= 0 ? true : false);
+
   const username = auth?.user?.nickname || auth?.user?.name || 'N.A';
   const avatar = auth?.user?.picture
   const isLogin = auth?.user?.nickname;
   const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit')|| auth?.user?.username?.includes('name');
+
+  /**
+   * isConnect
+   */
+
+
+  const handleClickConnect = (evt) => {
+    // https://stackoverflow.com/questions/54147290/nextjs-form-data-isnt-sent-to-the-express-server/54148262
+    evt.preventDefault();
+    // return console.log(evt.target)
+
+    if (isConnect) return;
+    
+    //making a post request with the fetch API
+    return fetch('/api/db/connect-user', {
+      method: 'POST',
+      headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify({
+           user: auth?.user,
+           currentUser: currentUser?.user,
+         })
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.log(error))
+      .finally(() => {
+        setIsConnect(true)
+      })
+  }
 
   return (
     <>
@@ -65,25 +109,32 @@ export default function Profile({ auth }) {
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
                     <div className="py-6 px-3 mt-32 sm:mt-0">
+                      <button
+                        className={`${isConnect ? 'bg-green-500 hover:bg-green-700 ' : 'bg-gray-800 active:bg-gray-700 '} uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150`}
+                        type="button"
+                        onClick={handleClickConnect}
+                      >
+                        {isConnect ? 'Connected' : 'Connect'}
+                      </button>
                     </div>
                   </div>
                   <div className="w-full lg:w-4/12 px-4 lg:order-1">
                     <div className="flex justify-center py-4 lg:pt-4 pt-8">
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                          22
+                          {friends}
                         </span>
                         <span className="text-sm text-gray-500">Friends</span>
                       </div>
                       <div className="mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                          10
+                          0
                         </span>
                         <span className="text-sm text-gray-500">Photos</span>
                       </div>
                       <div className="lg:mr-4 p-3 text-center">
                         <span className="text-xl font-bold block uppercase tracking-wide text-gray-700">
-                          89
+                          0
                         </span>
                         <span className="text-sm text-gray-500">Comments</span>
                       </div>
@@ -140,10 +191,40 @@ export default function Profile({ auth }) {
 export async function getServerSideProps(context) {
   const session = await auth0.getSession(context.req);
   
+  // searched user
+  const { user_id } = context.query;
+  const res = await fetch(`https://kodebaik.auth0.com/api/v2/users/${user_id}`, {
+    method: 'GET',
+    headers: {
+      authorization:
+        `Bearer ${process.env.AUTH0_TOKEN}`
+    }
+  });
+  const user = await res.json();
+
+  // connected user
+  const res_connected_user = await fetch(`${process.env.HOSTNAME}/api/db/connected-user`, {
+    method: 'POST',
+    body: {
+      keyword: user_id,
+    },
+    headers: {
+      authorization:
+        `Bearer ${process.env.AUTH0_TOKEN}`
+    }
+  });
+  const connected_user = await res_connected_user.json();
+  // console.log({ connected_user })
+  
+
   try {  
     return {
       props: {
-        auth: session
+        auth: {
+          user,
+        },
+        currentUser: session,
+        connected_user,
       },
     }
   } catch (err) {
