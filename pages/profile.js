@@ -7,13 +7,14 @@ import auth0 from './api/utils/auth0';
 
 export default function Profile({ auth }) {
   console.log({ auth });
-  const username = auth?.user?.name || 'N.A';
+  const username = auth?.user?.name || auth?.user?.nickname || 'N.A';
   const avatar = auth?.user?.picture
   const isLogin = auth?.user?.nickname;
+  const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit')|| auth?.user?.username?.includes('name');
 
   return (
     <>
-      <Navbar transparent isLogin={isLogin} />
+      <Navbar transparent isLogin={isLogin} isRecruiter={isRecruiter} />
       <main className="profile-page">
         <section className="relative block h-500-px">
           <div
