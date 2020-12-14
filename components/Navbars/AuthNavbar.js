@@ -7,6 +7,7 @@ import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
   const isLogin = props?.isLogin;
+  const isRecruiter = props?.isRecruiter;
   return (
     <>
       <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
@@ -43,10 +44,24 @@ export default function Navbar(props) {
                     className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   >
                     <i className="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2" />{" "}
-                    Job List
+                    List Pekerjaan
                   </a>
                 </Link>
               </li>
+              {isRecruiter ? (
+                <li className="flex items-center">
+                  <Link href="/post-job" className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold">
+                    <a
+                      href="/post-job"
+                      className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
+                    >
+                      <i className="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2" />{" "}
+                      Posting Pekerjaan Baru
+                    </a>
+                  </Link>
+                </li>
+
+              ) : ''}
               
             </ul>
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">

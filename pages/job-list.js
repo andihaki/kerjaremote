@@ -10,6 +10,7 @@ export default function Home({ initJobList, user, auth }) {
   const [jobs, setJobs] = useState([])
 
   const isLogin = auth?.user?.nickname;
+  const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit')|| auth?.user?.username?.includes('name');
 
   console.log({jobList, initJobList, hostname: process.env.HOSTNAME, auth })
   useEffect(() => {
@@ -41,7 +42,7 @@ export default function Home({ initJobList, user, auth }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Navbar isLogin={isLogin} />
+      <Navbar isLogin={isLogin} isRecruiter={isRecruiter} />
 
       <main className="container mx-auto my-10 max-w-xl">
       {/* <main> */}

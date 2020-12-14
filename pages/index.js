@@ -10,10 +10,11 @@ import auth0 from './api/utils/auth0';
 
 export default function Landing({ auth }) {
   const isLogin = auth?.user?.nickname;
+  const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit')|| auth?.user?.username?.includes('name');
 
   return (
     <>
-      <Navbar transparent isLogin={isLogin} />
+      <Navbar transparent isLogin={isLogin} isRecruiter={isRecruiter} />
       <main>
         <div className="relative pt-16 pb-32 flex content-center items-center justify-center min-h-screen-75">
           <div
