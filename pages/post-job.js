@@ -99,7 +99,7 @@ export default function Home({ user, auth }) {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    {isRecruiter ? 'Tambah Pekerjaan' : 'Anda tidak berhak mengakses halaman ini'}
+                    {isRecruiter ? 'Posting Pekerjaan' : 'Anda tidak berhak mengakses halaman ini'}
                   </h1>
 
                   <p className="mt-4 text-lg text-gray-300">
@@ -190,7 +190,7 @@ export default function Home({ user, auth }) {
             </div>
 
             <div className="col-span-6 sm:col-span-3">
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700">Kategori Pekerjaanf</label>
+              <label htmlFor="category" className="block text-sm font-medium text-gray-700">Kategori Pekerjaan</label>
               <input type="text" placeholder="software engineer" className="px-3 py-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full"
               value={category}
               onChange={e => setCategory(e.target.value)}
