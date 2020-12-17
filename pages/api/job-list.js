@@ -1,9 +1,9 @@
 // Import Dependencies
-const url = require('url')
-const MongoClient = require('mongodb').MongoClient
+const url = require('url');
+const { MongoClient } = require('mongodb');
 
 // Create cached connection variable
-let cachedDb = null
+let cachedDb = null;
 
 // A function for connecting to MongoDB,
 // taking a single parameter of the connection string
@@ -11,19 +11,19 @@ async function connectToDatabase(uri) {
   // If the database connection is cached,
   // use it instead of creating a new connection
   if (cachedDb) {
-    return cachedDb
+    return cachedDb;
   }
 
   // If no connection is cached, create a new one
-  const client = await MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  const client = await MongoClient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
   // Select the database through the connection,
   // using the database path of the connection string
-  const db = await client.db(url.parse(uri).pathname.substr(1))
+  const db = await client.db(url.parse(uri).pathname.substr(1));
 
   // Cache the database connection and return the connection
-  cachedDb = db
-  return db
+  cachedDb = db;
+  return db;
 }
 
 // The main, exported, function of the endpoint,
@@ -31,14 +31,14 @@ async function connectToDatabase(uri) {
 module.exports = async (req, res) => {
   // Get a database connection, cached or otherwise,
   // using the connection string environment variable as the argument
-  const db = await connectToDatabase(process.env.mongodb_uri)
+  const db = await connectToDatabase(process.env.mongodb_uri);
 
   // Select the "Job List" collection from the database
-  const collection = await db.collection('job_list')
+  const collection = await db.collection('job_list');
 
   // Select the users collection from the database
-  const jobList = await collection.find({}).toArray()
+  const jobList = await collection.find({}).toArray();
 
   // Respond with a JSON string of all users in the collection
-  res.status(200).json(jobList)
-}
+  res.status(200).json(jobList);
+};

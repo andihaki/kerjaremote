@@ -1,5 +1,7 @@
-import React from "react";
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import React from 'react';
+import Document, {
+  Html, Head, Main, NextScript,
+} from 'next/document';
 
 class MyDocument extends Document {
   render() {
@@ -10,16 +12,16 @@ class MyDocument extends Document {
           <meta name="theme-color" content="#000000" />
           <link
             rel="shortcut icon"
-            href={require("public/favicon.ico")}
+            href={require('public/favicon.ico')}
           />
           <link
             rel="apple-touch-icon"
             sizes="76x76"
-            href={require("public/logo.svg")}
+            href={require('public/logo.svg')}
           />
         </Head>
         <body className="text-gray-800 antialiased">
-          <div id="page-transition"></div>
+          <div id="page-transition" />
           <Main />
           <NextScript />
         </body>

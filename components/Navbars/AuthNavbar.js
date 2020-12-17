@@ -1,13 +1,13 @@
-import React from "react";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
+import { bool, oneOfType, string } from 'prop-types';
 // components
 
-import PagesDropdown from "components/Dropdowns/PagesDropdown.js";
+// import PagesDropdown from 'components/Dropdowns/PagesDropdown';
 
-export default function Navbar(props) {
+export default function Navbar({ isLogin, isRecruiter }) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
-  const isLogin = props?.isLogin;
-  const isRecruiter = props?.isRecruiter;
+
   return (
     <>
       <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
@@ -26,13 +26,13 @@ export default function Navbar(props) {
               type="button"
               onClick={() => setNavbarOpen(!navbarOpen)}
             >
-              <i className="text-white fas fa-bars"></i>
+              <i className="text-white fas fa-bars" />
             </button>
           </div>
           <div
             className={
-              "lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none" +
-              (navbarOpen ? " block rounded shadow-lg" : " hidden")
+              `lg:flex flex-grow items-center bg-white lg:bg-transparent lg:shadow-none${
+                navbarOpen ? ' block rounded shadow-lg' : ' hidden'}`
             }
             id="example-navbar-warning"
           >
@@ -43,7 +43,8 @@ export default function Navbar(props) {
                     href="/job-list"
                     className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   >
-                    <i className="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2" />{" "}
+                    <i className="lg:text-gray-300 text-gray-500 far fa-file-alt text-lg leading-lg mr-2" />
+                    {' '}
                     List Pekerjaan
                   </a>
                 </Link>
@@ -55,7 +56,8 @@ export default function Navbar(props) {
                       href="/post-job"
                       className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                     >
-                      <i className="lg:text-gray-300 text-gray-500 far fa-paper-plane text-lg leading-lg mr-2" />{" "}
+                      <i className="lg:text-gray-300 text-gray-500 far fa-paper-plane text-lg leading-lg mr-2" />
+                      {' '}
                       Posting Pekerjaan Baru
                     </a>
                   </Link>
@@ -69,12 +71,13 @@ export default function Navbar(props) {
                     href="/search-user"
                     className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   >
-                    <i className="lg:text-gray-300 text-gray-500 fas fa-search text-lg leading-lg mr-2" />{" "}
+                    <i className="lg:text-gray-300 text-gray-500 fas fa-search text-lg leading-lg mr-2" />
+                    {' '}
                     Cari User
                   </a>
                 </Link>
               </li>
-              
+
             </ul>
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
               {isLogin ? (
@@ -84,7 +87,8 @@ export default function Navbar(props) {
                       href="/profile"
                       className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                     >
-                      <i className="lg:text-gray-300 text-gray-500 far fa-user text-lg leading-lg mr-2" />{" "}
+                      <i className="lg:text-gray-300 text-gray-500 far fa-user text-lg leading-lg mr-2" />
+                      {' '}
                       Profile
                     </a>
                   </Link>
@@ -96,7 +100,8 @@ export default function Navbar(props) {
                     href={`/api/${isLogin ? 'logout' : 'login'}`}
                     className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   >
-                    <i className={`lg:text-gray-300 text-gray-500 ${isLogin ? 'fas fa-sign-out-alt' : 'fas fa-sign-in-alt' } text-lg leading-lg mr-2`} />{" "}
+                    <i className={`lg:text-gray-300 text-gray-500 ${isLogin ? 'fas fa-sign-out-alt' : 'fas fa-sign-in-alt'} text-lg leading-lg mr-2`} />
+                    {' '}
                     {isLogin ? 'Logout' : 'Login'}
                   </a>
                 </Link>
@@ -131,6 +136,7 @@ export default function Navbar(props) {
                   className="lg:text-white lg:hover:text-gray-300 text-gray-800 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"
                   href="https://github.com/andihaki/kerjaremote"
                   target="_blank"
+                  rel="noreferrer"
                 >
                   <i className="lg:text-gray-300 text-gray-500 fab fa-github text-lg leading-lg " />
                   <span className="lg:hidden inline-block ml-2">Star</span>
@@ -152,3 +158,6 @@ export default function Navbar(props) {
     </>
   );
 }
+
+Navbar.propTypes = { isLogin: oneOfType(bool, string), isRecruiter: bool };
+Navbar.defaultProps = { isLogin: false, isRecruiter: false };
