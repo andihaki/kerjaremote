@@ -8,7 +8,6 @@ handler.use(middleware);
 // insert data
 handler.post(async (req, res) => {
   let data = req.body;
-  
 
   data = {
     jobTitle: data.jobTitle,
@@ -19,16 +18,15 @@ handler.post(async (req, res) => {
     category: data.category,
     region: data.region,
     username: data.username,
-  }
+  };
   // console.log({ data })
 
   // data.date = new Date(data.date);
 
-  let doc = await req.db.collection('applied_jobs').insertOne(data)
+  const doc = await req.db.collection('applied_jobs').insertOne(data);
   // let doc = await req.db.collection('job_list').updateOne({}, {$set:data}, {upsert: false})
 
-  res.json({message: 'ok'});
-
-})
+  res.json({ message: doc ? 'ok' : 'oops' });
+});
 
 export default handler;

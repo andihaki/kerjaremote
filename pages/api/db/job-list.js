@@ -6,19 +6,18 @@ const handler = nextConnect();
 handler.use(middleware);
 
 handler.get(async (req, res) => {
-
   // let doc = await req.db.collection('job_list').findOne()
   // console.log(doc);
   // res.json(doc);
 
   // Select the "Job List" collection from the database
-  const collection = await req.db.collection('job_list')
+  const collection = await req.db.collection('job_list');
 
   // Select the users collection from the database
-  const jobList = await collection.find({}).toArray()
+  const jobList = await collection.find({}).toArray();
 
   // Respond with a JSON string of all users in the collection
-  res.status(200).json(jobList)
+  res.status(200).json(jobList);
 });
 
 // // update data
@@ -47,25 +46,24 @@ handler.get(async (req, res) => {
 // insert data
 handler.post(async (req, res) => {
   let data = ''; // req.body;
-  
+
   data = {
-    jobTitle: "xyz Product Engineer",
-    jobDescription: "xyz",
-    url: "https://jobs.lever.co/gitbook/674bc55f-584d-4db4-be9f-92f2122e7e4c",
-    companyName: "test",
-    logo: "https://lever-client-logos.s3.amazonaws.com/bb3aad4b-7e0e-4248-8b27-8821bd7bd79e-1578311094105.png",
-    category: "Software Engineer",
-    region: "Indonesia",
+    jobTitle: 'xyz Product Engineer',
+    jobDescription: 'xyz',
+    url: 'https://jobs.lever.co/gitbook/674bc55f-584d-4db4-be9f-92f2122e7e4c',
+    companyName: 'test',
+    logo: 'https://lever-client-logos.s3.amazonaws.com/bb3aad4b-7e0e-4248-8b27-8821bd7bd79e-1578311094105.png',
+    category: 'Software Engineer',
+    region: 'Indonesia',
   };
 
   // data = JSON.parse(data);
 
   // data.date = new Date(data.date);
 
-  let doc = await req.db.collection('job_list').insertOne(data)
+  const doc = await req.db.collection('job_list').insertOne(data);
 
-  res.json({message: 'ok'});
-
-})
+  res.json({ message: doc ? 'ok' : 'oops' });
+});
 
 export default handler;

@@ -19,6 +19,7 @@ export default function Profile({ auth }) {
   const handleSubmit = evt => {
     // https://stackoverflow.com/questions/54147290/nextjs-form-data-isnt-sent-to-the-express-server/54148262
     evt.preventDefault();
+    // console.log({ keyword })
     // return console.log(evt.target)
     
     //making a post request with the fetch API
@@ -124,9 +125,9 @@ export default function Profile({ auth }) {
 
                 <div>
                   {result?.length ? result?.map(item => {
-                    const { client_id, nickname, user_id, picture, email, name } = item
+                    const { clientId, nickname, userId, picture, email, name } = item
                     return (
-                      <Link key={client_id} href={`/profile/${user_id}`}
+                      <Link key={clientId} href={`/profile/${userId}`}
                         className="my-4 shadow-lg rounded leading-normal"
                       >
                         <div className="flex">

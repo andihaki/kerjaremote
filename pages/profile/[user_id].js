@@ -1,60 +1,57 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { useRouter } from 'next/router'
-import Navbar from "components/Navbars/AuthNavbar.js";
-import Footer from "components/Footers/Footer.js";
+import Navbar from 'components/Navbars/AuthNavbar.js';
+import Footer from 'components/Footers/Footer.js';
 
+import { object } from 'prop-types';
 import auth0 from '../api/utils/auth0';
 
-export default function Profile({ auth, currentUser, connected_user }) {
+export default function Profile({ auth, currentUser, connectedUser }) {
   // console.log({ auth, currentUser });
-  console.log(connected_user)
-  console.log(currentUser)
-  console.log('@@@ connect user')
+  console.log(connectedUser);
+  console.log(currentUser);
+  console.log('@@@ connect user');
 
-  const router = useRouter()
-  const { user_id } = router.query;
-
-  const findUser = connected_user?.findIndex(item => item.following.user_id === currentUser?.user?.sub)
-  const friends = connected_user?.length;
-  const [isConnect, setIsConnect] = useState(findUser >= 0 ? true : false);
+  const findUser = connectedUser?.findIndex((item) => item.following.userId === currentUser?.user?.sub);
+  const friends = connectedUser?.length;
+  const [isConnect, setIsConnect] = useState(findUser >= 0);
 
   const username = auth?.user?.nickname || auth?.user?.name || 'N.A';
-  const avatar = auth?.user?.picture
+  const avatar = auth?.user?.picture;
   const isLogin = auth?.user?.nickname;
-  const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit')|| auth?.user?.username?.includes('name');
+  const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit') || auth?.user?.username?.includes('name');
 
   /**
    * isConnect
    */
-
 
   const handleClickConnect = (evt) => {
     // https://stackoverflow.com/questions/54147290/nextjs-form-data-isnt-sent-to-the-express-server/54148262
     evt.preventDefault();
     // return console.log(evt.target)
 
-    if (isConnect) return;
-    
-    //making a post request with the fetch API
+    if (isConnect) {
+      return null;
+    }
+    // making a post request with the fetch API
     return fetch('/api/db/connect-user', {
       method: 'POST',
       headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-      }, 
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({
-           user: auth?.user,
-           currentUser: currentUser?.user,
-         })
-      })
-      .then(response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.log(error))
+        user: auth?.user,
+        currentUser: currentUser?.user,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error))
       .finally(() => {
-        setIsConnect(true)
-      })
-  }
+        setIsConnect(true);
+      });
+  };
 
   return (
     <>
@@ -71,11 +68,11 @@ export default function Profile({ auth, currentUser, connected_user }) {
             <span
               id="blackOverlay"
               className="w-full h-full absolute opacity-50 bg-black"
-            ></span>
+            />
           </div>
           <div
             className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-16"
-            style={{ transform: "translateZ(0)" }}
+            style={{ transform: 'translateZ(0)' }}
           >
             <svg
               className="absolute bottom-0 overflow-hidden"
@@ -89,7 +86,7 @@ export default function Profile({ auth, currentUser, connected_user }) {
               <polygon
                 className="text-gray-300 fill-current"
                 points="2560 0 2560 100 0 100"
-              ></polygon>
+              />
             </svg>
           </div>
         </section>
@@ -146,15 +143,16 @@ export default function Profile({ auth, currentUser, connected_user }) {
                     {username}
                   </h3>
                   <div className="text-sm leading-normal mt-0 mb-2 text-gray-500 font-bold uppercase">
-                    <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-500"></i>{" "}
+                    <i className="fas fa-map-marker-alt mr-2 text-lg text-gray-500" />
+                    {' '}
                     Los Angeles, California
                   </div>
                   <div className="mb-2 text-gray-700 mt-10">
-                    <i className="fas fa-briefcase mr-2 text-lg text-gray-500"></i>
+                    <i className="fas fa-briefcase mr-2 text-lg text-gray-500" />
                     Solution Manager - Creative Tim Officer
                   </div>
                   <div className="mb-2 text-gray-700">
-                    <i className="fas fa-university mr-2 text-lg text-gray-500"></i>
+                    <i className="fas fa-university mr-2 text-lg text-gray-500" />
                     University of Computer Science
                   </div>
                 </div>
@@ -188,51 +186,62 @@ export default function Profile({ auth, currentUser, connected_user }) {
   );
 }
 
+Profile.propTypes = {
+  auth: object,
+  currentUser: object,
+  connectedUser: object,
+};
+
+Profile.defaultProps = {
+  auth: {},
+  currentUser: {},
+  connectedUser: {},
+};
+
 export async function getServerSideProps(context) {
   const session = await auth0.getSession(context.req);
-  
+
   // searched user
-  const { user_id } = context.query;
-  const res = await fetch(`https://kodebaik.auth0.com/api/v2/users/${user_id}`, {
+  const { userId } = context.query;
+  const res = await fetch(`https://kodebaik.auth0.com/api/v2/users/${userId}`, {
     method: 'GET',
     headers: {
       authorization:
-        `Bearer ${process.env.AUTH0_TOKEN}`
-    }
+        `Bearer ${process.env.AUTH0_TOKEN}`,
+    },
   });
   const user = await res.json();
 
   // connected user
-  const res_connected_user = await fetch(`${process.env.HOSTNAME}/api/db/connected-user`, {
+  const resConnectedUser = await fetch(`${process.env.HOSTNAME}/api/db/connected-user`, {
     method: 'POST',
     body: {
-      keyword: user_id,
+      keyword: userId,
     },
     headers: {
       authorization:
-        `Bearer ${process.env.AUTH0_TOKEN}`
-    }
+        `Bearer ${process.env.AUTH0_TOKEN}`,
+    },
   });
-  const connected_user = await res_connected_user.json();
-  // console.log({ connected_user })
-  
+  const connectedUser = await resConnectedUser.json();
+  // console.log({ connectedUser })
 
-  try {  
+  try {
     return {
       props: {
         auth: {
           user,
         },
         currentUser: session,
-        connected_user,
+        connectedUser,
       },
-    }
+    };
   } catch (err) {
     console.error(err);
     return {
       props: {
-        err: "Ada kesalahan, biar kami bereskan"
-      }
-    }
+        err: 'Ada kesalahan, biar kami bereskan',
+      },
+    };
   }
 }

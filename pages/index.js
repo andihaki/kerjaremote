@@ -1,16 +1,17 @@
-import React from "react";
-import Link from "next/link";
+import React from 'react';
+import Link from 'next/link';
 
 // components
 
-import Navbar from "components/Navbars/AuthNavbar.js";
-import Footer from "components/Footers/Footer.js";
+import { object } from 'prop-types';
+import Navbar from 'components/Navbars/AuthNavbar';
+import Footer from '../components/Footers/Footer';
 
 import auth0 from './api/utils/auth0';
 
 export default function Landing({ auth }) {
   const isLogin = auth?.user?.nickname;
-  const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit')|| auth?.user?.username?.includes('name');
+  const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit') || auth?.user?.username?.includes('name');
 
   return (
     <>
@@ -27,7 +28,7 @@ export default function Landing({ auth }) {
             <span
               id="blackOverlay"
               className="w-full h-full absolute opacity-75 bg-black"
-            ></span>
+            />
           </div>
           <div className="container relative mx-auto">
             <div className="items-center flex flex-wrap">
@@ -45,7 +46,7 @@ export default function Landing({ auth }) {
           </div>
           <div
             className="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-16"
-            style={{ transform: "translateZ(0)" }}
+            style={{ transform: 'translateZ(0)' }}
           >
             <svg
               className="absolute bottom-0 overflow-hidden"
@@ -59,7 +60,7 @@ export default function Landing({ auth }) {
               <polygon
                 className="text-gray-300 fill-current"
                 points="2560 0 2560 100 0 100"
-              ></polygon>
+              />
             </svg>
           </div>
         </div>
@@ -71,7 +72,7 @@ export default function Landing({ auth }) {
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-red-400">
-                      <i className="fas fa-award"></i>
+                      <i className="fas fa-award" />
                     </div>
                     <h6 className="text-xl font-semibold">Awarded Agency</h6>
                     <p className="mt-2 mb-4 text-gray-600">
@@ -86,7 +87,7 @@ export default function Landing({ auth }) {
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-blue-400">
-                      <i className="fas fa-retweet"></i>
+                      <i className="fas fa-retweet" />
                     </div>
                     <h6 className="text-xl font-semibold">Free Revisions</h6>
                     <p className="mt-2 mb-4 text-gray-600">
@@ -101,7 +102,7 @@ export default function Landing({ auth }) {
                 <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-8 shadow-lg rounded-lg">
                   <div className="px-4 py-5 flex-auto">
                     <div className="text-white p-3 text-center inline-flex items-center justify-center w-12 h-12 mb-5 shadow-lg rounded-full bg-green-400">
-                      <i className="fas fa-fingerprint"></i>
+                      <i className="fas fa-fingerprint" />
                     </div>
                     <h6 className="text-xl font-semibold">Verified Company</h6>
                     <p className="mt-2 mb-4 text-gray-600">
@@ -116,7 +117,7 @@ export default function Landing({ auth }) {
             <div className="flex flex-wrap items-center mt-32">
               <div className="w-full md:w-5/12 px-4 mr-auto ml-auto">
                 <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-100">
-                  <i className="fas fa-user-friends text-xl"></i>
+                  <i className="fas fa-user-friends text-xl" />
                 </div>
                 <h3 className="text-3xl mb-2 font-semibold leading-normal">
                   Working with us is a pleasure
@@ -156,7 +157,7 @@ export default function Landing({ auth }) {
                       <polygon
                         points="-30,95 583,95 583,65"
                         className="text-gray-800 fill-current"
-                      ></polygon>
+                      />
                     </svg>
                     <h4 className="text-xl font-bold text-white">
                       Top Notch Services
@@ -176,7 +177,7 @@ export default function Landing({ auth }) {
         <section className="relative py-20">
           <div
             className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
-            style={{ transform: "translateZ(0)" }}
+            style={{ transform: 'translateZ(0)' }}
           >
             <svg
               className="absolute bottom-0 overflow-hidden"
@@ -190,7 +191,7 @@ export default function Landing({ auth }) {
               <polygon
                 className="text-white fill-current"
                 points="2560 0 2560 100 0 100"
-              ></polygon>
+              />
             </svg>
           </div>
 
@@ -206,7 +207,7 @@ export default function Landing({ auth }) {
               <div className="w-full md:w-5/12 ml-auto mr-auto px-4">
                 <div className="md:pr-12">
                   <div className="text-gray-600 p-3 text-center inline-flex items-center justify-center w-16 h-16 mb-6 shadow-lg rounded-full bg-gray-300">
-                    <i className="fas fa-rocket text-xl"></i>
+                    <i className="fas fa-rocket text-xl" />
                   </div>
                   <h3 className="text-3xl font-semibold">A growing company</h3>
                   <p className="mt-4 text-lg leading-relaxed text-gray-600">
@@ -219,7 +220,7 @@ export default function Landing({ auth }) {
                       <div className="flex items-center">
                         <div>
                           <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 mr-3">
-                            <i className="fas fa-fingerprint"></i>
+                            <i className="fas fa-fingerprint" />
                           </span>
                         </div>
                         <div>
@@ -233,7 +234,7 @@ export default function Landing({ auth }) {
                       <div className="flex items-center">
                         <div>
                           <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 mr-3">
-                            <i className="fab fa-html5"></i>
+                            <i className="fab fa-html5" />
                           </span>
                         </div>
                         <div>
@@ -247,7 +248,7 @@ export default function Landing({ auth }) {
                       <div className="flex items-center">
                         <div>
                           <span className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-gray-600 bg-gray-200 mr-3">
-                            <i className="far fa-paper-plane"></i>
+                            <i className="far fa-paper-plane" />
                           </span>
                         </div>
                         <div>
@@ -279,7 +280,7 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("public/team/Andi-Hakim-Arif.jpg")}
+                    src={require('public/team/Andi-Hakim-Arif.jpg')}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -292,19 +293,19 @@ export default function Landing({ auth }) {
                         className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-twitter"></i>
+                        <i className="fab fa-twitter" />
                       </button>
                       <button
                         className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-facebook-f"></i>
+                        <i className="fab fa-facebook-f" />
                       </button>
                       <button
                         className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-dribbble"></i>
+                        <i className="fab fa-dribbble" />
                       </button>
                     </div>
                   </div>
@@ -314,7 +315,7 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("public/team/Arna-Tobby.jpeg")}
+                    src={require('public/team/Arna-Tobby.jpeg')}
                     className="shadow-lg rounded-full mx-auto max-w-120-px min-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -327,13 +328,13 @@ export default function Landing({ auth }) {
                         className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-google"></i>
+                        <i className="fab fa-google" />
                       </button>
                       <button
                         className="bg-blue-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-facebook-f"></i>
+                        <i className="fab fa-facebook-f" />
                       </button>
                     </div>
                   </div>
@@ -343,7 +344,7 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("public/team/Herianto-Saputra.jpg")}
+                    src={require('public/team/Herianto-Saputra.jpg')}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -356,19 +357,19 @@ export default function Landing({ auth }) {
                         className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-google"></i>
+                        <i className="fab fa-google" />
                       </button>
                       <button
                         className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-twitter"></i>
+                        <i className="fab fa-twitter" />
                       </button>
                       <button
                         className="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-instagram"></i>
+                        <i className="fab fa-instagram" />
                       </button>
                     </div>
                   </div>
@@ -378,7 +379,7 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require("public/team/Fauzi-Tri-Musyafa.jpg")}
+                    src={require('public/team/Fauzi-Tri-Musyafa.jpg')}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -391,25 +392,25 @@ export default function Landing({ auth }) {
                         className="bg-pink-500 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-dribbble"></i>
+                        <i className="fab fa-dribbble" />
                       </button>
                       <button
                         className="bg-red-600 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-google"></i>
+                        <i className="fab fa-google" />
                       </button>
                       <button
                         className="bg-blue-400 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-twitter"></i>
+                        <i className="fab fa-twitter" />
                       </button>
                       <button
                         className="bg-gray-800 text-white w-8 h-8 rounded-full outline-none focus:outline-none mr-1 mb-1"
                         type="button"
                       >
-                        <i className="fab fa-instagram"></i>
+                        <i className="fab fa-instagram" />
                       </button>
                     </div>
                   </div>
@@ -422,7 +423,7 @@ export default function Landing({ auth }) {
         <section className="pb-20 relative block bg-gray-900">
           <div
             className="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
-            style={{ transform: "translateZ(0)" }}
+            style={{ transform: 'translateZ(0)' }}
           >
             <svg
               className="absolute bottom-0 overflow-hidden"
@@ -436,7 +437,7 @@ export default function Landing({ auth }) {
               <polygon
                 className="text-gray-900 fill-current"
                 points="2560 0 2560 100 0 100"
-              ></polygon>
+              />
             </svg>
           </div>
 
@@ -456,7 +457,7 @@ export default function Landing({ auth }) {
             <div className="flex flex-wrap mt-12 justify-center">
               <div className="w-full lg:w-3/12 px-4 text-center">
                 <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
-                  <i className="fas fa-medal text-xl"></i>
+                  <i className="fas fa-medal text-xl" />
                 </div>
                 <h6 className="text-xl mt-5 font-semibold text-white">
                   Excelent Services
@@ -468,7 +469,7 @@ export default function Landing({ auth }) {
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
                 <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
-                  <i className="fas fa-poll text-xl"></i>
+                  <i className="fas fa-poll text-xl" />
                 </div>
                 <h5 className="text-xl mt-5 font-semibold text-white">
                   Grow your market
@@ -480,7 +481,7 @@ export default function Landing({ auth }) {
               </div>
               <div className="w-full lg:w-3/12 px-4 text-center">
                 <div className="text-gray-900 p-3 w-12 h-12 shadow-lg rounded-full bg-white inline-flex items-center justify-center">
-                  <i className="fas fa-lightbulb text-xl"></i>
+                  <i className="fas fa-lightbulb text-xl" />
                 </div>
                 <h5 className="text-xl mt-5 font-semibold text-white">
                   Launch time
@@ -568,22 +569,29 @@ export default function Landing({ auth }) {
   );
 }
 
+Landing.propTypes = {
+  auth: object,
+};
+
+Landing.defaultProps = {
+  auth: {},
+};
 
 export async function getServerSideProps(context) {
   const session = await auth0.getSession(context.req);
-  
+
   try {
     return {
       props: {
-        auth: session
+        auth: session,
       },
-    }
+    };
   } catch (err) {
     console.error(err);
     return {
       props: {
-        err: "Ada kesalahan, biar kami bereskan"
-      }
-    }
+        err: 'Ada kesalahan, biar kami bereskan',
+      },
+    };
   }
 }
