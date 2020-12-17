@@ -199,7 +199,7 @@ Profile.defaultProps = {
 };
 
 export async function getServerSideProps(context) {
-  const session = await auth0.getSession(context.req);
+  const session = await auth0?.getSession(context.req);
 
   // searched user
   const { userId } = context.query;

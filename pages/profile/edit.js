@@ -229,7 +229,7 @@ export default function Edit({ auth, user_profile }) {
 }
 
 export async function getServerSideProps(context) {
-  const session = await auth0.getSession(context.req);
+  const session = await auth0?.getSession(context.req);
   
   // user profile
   const username = session.user.name;
