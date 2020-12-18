@@ -6,13 +6,13 @@ import Head from 'next/head';
 import { arrayOf, object } from 'prop-types';
 import Router from 'next/router';
 
-import Navbar from 'components/Navbars/AuthNavbar';
+import Navbar from '../components/Navbars/AuthNavbar';
 import { JobContext } from '../context/JobContext';
 import auth0 from './api/utils/auth0';
 
 export default function Home({ initJobList, auth }) {
   const { jobList } = useContext(JobContext);
-  const [jobs, setJobs] = useState([]);
+  const [jobs, setJobs] = useState(jobList);
 
   const isLogin = auth?.user?.nickname;
   const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit') || auth?.user?.username?.includes('name');
@@ -102,7 +102,7 @@ export default function Home({ initJobList, auth }) {
               <div className="w-full lg:w-6/12 px-4 ml-auto mr-auto text-center">
                 <div className="pr-12">
                   <h1 className="text-white font-semibold text-5xl">
-                    List Pekerjaan
+                    Pekerjaan Remote
                   </h1>
 
                   <p className="mt-4 text-lg text-gray-300" />
@@ -136,7 +136,7 @@ export default function Home({ initJobList, auth }) {
             logo, companyName, jobDescription, jobTitle, url,
           } = job;
           return (
-            <div key={index} className="p-4 pt-4 mb-8 rounded overflow-hidden shadow-lg">
+            <div key={index} className="p-4 pt-4 mb-8 rounded overflow-hidden shadow-lg" data-testid={`job-item-${index + 1}`}>
               <div className="flex items-center">
                 <img src={logo} alt={companyName} className="p-2 w-16 h-16 rounded-full mr-4" />
                 <div>
@@ -163,7 +163,7 @@ Home.propTypes = {
 };
 
 Home.defaultProps = {
-  initJobList: [{}],
+  initJobList: [],
   user: {},
   auth: {},
 };

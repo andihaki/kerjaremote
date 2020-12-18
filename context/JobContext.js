@@ -1,10 +1,10 @@
-import { createContext, useEffect, useState } from "react";
+import { arrayOf, node, object } from 'prop-types';
+import { createContext, useEffect, useState } from 'react';
 
 const JobContext = createContext();
 
-const JobProvider = ({ children }) => {
-
-  const [jobList, setJobList] = useState([]);
+const JobProvider = ({ init, children }) => {
+  const [jobList, setJobList] = useState(init);
 
   const refreshJobList = async () => {
     try {
@@ -13,9 +13,9 @@ const JobProvider = ({ children }) => {
       setJobList(latestJobList);
       // console.log('context ', latestJobList)
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchJobList = async () => {
@@ -26,23 +26,33 @@ const JobProvider = ({ children }) => {
         setJobList(latestJobList);
         // console.log('context ', latestJobList)
       } catch (err) {
-        console.error(err)
+        console.error(err);
       }
-    }
+    };
     if (!jobList || !jobList.length) {
       fetchJobList();
     }
-  }, [])
+  }, [jobList]);
 
   return (
     <JobContext.Provider value={{
       jobList,
       setJobList,
-      refreshJobList
-    }}>
+      refreshJobList,
+    }}
+    >
       {children}
     </JobContext.Provider>
   );
+};
+
+JobProvider.propTypes = {
+  children: node.isRequired,
+  init: arrayOf(object),
+};
+
+JobProvider.defaultProps = {
+  init: [],
 };
 
 export { JobContext, JobProvider };

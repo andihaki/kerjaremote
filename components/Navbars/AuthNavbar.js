@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { bool, oneOfType, string } from 'prop-types';
+import {
+  bool, oneOfType, string,
+} from 'prop-types';
 // components
 
 // import PagesDropdown from 'components/Dropdowns/PagesDropdown';
@@ -159,5 +161,5 @@ export default function Navbar({ isLogin, isRecruiter }) {
   );
 }
 
-Navbar.propTypes = { isLogin: oneOfType(bool, string), isRecruiter: bool };
+Navbar.propTypes = { isLogin: oneOfType([bool, string]), isRecruiter: bool };
 Navbar.defaultProps = { isLogin: false, isRecruiter: false };
