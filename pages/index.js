@@ -1,14 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
-
-// components
-
 import { object } from 'prop-types';
-import Navbar from 'components/Navbars/AuthNavbar';
+
+import Navbar from '../components/Navbars/AuthNavbar';
 import Footer from '../components/Footers/Footer';
 
 import auth0 from './api/utils/auth0';
 
+const img1 = 'https://raw.githubusercontent.com/andihaki/kerjaremote/main/public/team/Andi-Hakim-Arif.jpg';
+const img2 = 'https://raw.githubusercontent.com/andihaki/kerjaremote/main/public/team/Arna-Tobby.jpeg';
+const img3 = 'https://raw.githubusercontent.com/andihaki/kerjaremote/main/public/team/Herianto-Saputra.jpg';
+const img4 = 'https://raw.githubusercontent.com/andihaki/kerjaremote/main/public/team/Fauzi-Tri-Musyafa.jpg';
 export default function Landing({ auth }) {
   const isLogin = auth?.user?.nickname;
   const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit') || auth?.user?.username?.includes('name');
@@ -280,7 +282,8 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require('public/team/Andi-Hakim-Arif.jpg')}
+                    // src={require('public/team/Andi-Hakim-Arif.jpg')}
+                    src={img1}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -315,7 +318,8 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require('public/team/Arna-Tobby.jpeg')}
+                    // src={require('public/team/Arna-Tobby.jpeg')}
+                    src={img2}
                     className="shadow-lg rounded-full mx-auto max-w-120-px min-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -344,7 +348,8 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require('public/team/Herianto-Saputra.jpg')}
+                    // src={require('public/team/Herianto-Saputra.jpg')}
+                    src={img3}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
@@ -379,7 +384,8 @@ export default function Landing({ auth }) {
                 <div className="px-6">
                   <img
                     alt="..."
-                    src={require('public/team/Fauzi-Tri-Musyafa.jpg')}
+                    // src={require('public/team/Fauzi-Tri-Musyafa.jpg')}
+                    src={img4}
                     className="shadow-lg rounded-full mx-auto max-w-120-px"
                   />
                   <div className="pt-6 text-center">
