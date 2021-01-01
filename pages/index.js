@@ -265,7 +265,7 @@ export default function Landing({ auth }) {
           </div>
         </section>
 
-        <section className="pt-20 pb-48">
+        <section className="pt-20 pb-48" id="about">
           <div className="container mx-auto px-4">
             <div className="flex flex-wrap justify-center text-center mb-24">
               <div className="w-full lg:w-6/12 px-4">
