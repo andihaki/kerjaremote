@@ -132,10 +132,8 @@ export default function Profile({ auth }) {
                         className="my-4 shadow-lg rounded leading-normal"
                       >
                         <div className="flex">
-                        <div className="flex flex-wrap justify-center">
-                          <div className="w-6/12 sm:w-4/12 px-4 my-4">
-                            <img src={picture} alt="..." className="shadow-lg rounded-full max-w-full h-auto align-middle border-none" />
-                          </div>
+                        <div className="flex flex-wrap justify-center items-center pr-4">
+                            <img src={picture} alt="..." className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
                         </div>
 
                         <div  className="my-4">

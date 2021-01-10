@@ -8,7 +8,7 @@ import { object } from 'prop-types';
 import auth0 from '../api/utils/auth0';
 
 export default function Edit({ auth, userProfile }) {
-  console.log({ userProfile });
+  // console.log({ userProfile });
 
   const [name, setName] = useState(userProfile?.name);
   const [profilePicture, setProfilePicture] = useState(userProfile?.profilePicture);
@@ -246,20 +246,20 @@ export async function getServerSideProps(context) {
   const session = await auth0.getSession(context.req);
 
   // user profile
-  const username = session.user.name;
+  const username = session.user.name || session.user.sub.split('|')?.[1];
   const resUserProfile = await fetch(`${process.env.HOSTNAME}/api/db/user-profile`, {
     method: 'POST',
-    body: {
+    body: JSON.stringify({
       keyword: username,
       username,
-    },
+    }),
     headers: {
       authorization:
         `Bearer ${process.env.AUTH0_TOKEN}`,
     },
   });
   const userProfile = await resUserProfile.json();
-  console.log({ username, userProfile });
+  // console.log({ username, userProfile });
 
   try {
     return {

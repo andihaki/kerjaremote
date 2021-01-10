@@ -8,7 +8,7 @@ import Footer from '../components/Footers/Footer';
 import auth0 from './api/utils/auth0';
 
 export default function Profile({ auth, connectedUser, userProfile }) {
-  console.log({ auth });
+  // console.log({ auth });
 
   const {
     name, profilePicture, address = 'Alamat', profileDescription = 'Deskripsi dari diri anda', companyName = 'Nama Perusahaan', jobTitle = 'Pekerjaan', university = 'Nama Universitas',
@@ -24,7 +24,7 @@ export default function Profile({ auth, connectedUser, userProfile }) {
 
   // console.log({ connectedUser, friends });
 
-  console.log({ userProfile });
+  // console.log({ userProfile });
 
   return (
     <>
@@ -192,19 +192,19 @@ export async function getServerSideProps(context) {
   const connectedUser = await resConnectedUser.json();
 
   // user profile
-  const username = session.user.name;
+  const username = session.user.name || session.user.sub.split('|')?.[1];
   const resUserProfile = await fetch(`${process.env.HOSTNAME}/api/db/user-profile`, {
     method: 'POST',
-    body: {
+    body: JSON.stringify({
       keyword: username,
-    },
+    }),
     headers: {
       authorization:
         `Bearer ${process.env.AUTH0_TOKEN}`,
     },
   });
   const userProfile = await resUserProfile.json();
-  console.log({ username, userProfile });
+  // console.log({ username, userProfile });
 
   try {
     return {
