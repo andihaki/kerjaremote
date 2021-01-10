@@ -124,10 +124,11 @@ export default function Profile({ auth }) {
                 </div>
 
                 <div>
-                  {result?.length ? result?.map(item => {
-                    const { clientId, nickname, userId, picture, email, name } = item
+                  {result?.length ? result?.map((item, index) => {
+                    const { client_id, nickname, user_id: userId, picture, email, name } = item
+                    // console.log({ userId })
                     return (
-                      <Link key={clientId} href={`/profile/${userId}`}
+                      <Link key={index} href={`/profile/${userId}`}
                         className="my-4 shadow-lg rounded leading-normal"
                       >
                         <div className="flex">

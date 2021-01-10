@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { object } from 'prop-types';
+import { arrayOf, object } from 'prop-types';
 
 import Navbar from 'components/Navbars/AuthNavbar';
 import Footer from '../components/Footers/Footer';
@@ -164,13 +164,13 @@ export default function Profile({ auth, connectedUser, userProfile }) {
 
 Profile.propTypes = {
   auth: object,
-  connectedUser: object,
+  connectedUser: arrayOf(object),
   userProfile: object,
 };
 
 Profile.defaultProps = {
   auth: {},
-  connectedUser: {},
+  connectedUser: [],
   userProfile: {},
 };
 

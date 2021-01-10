@@ -3,16 +3,16 @@ import React, { useState } from 'react';
 import Navbar from 'components/Navbars/AuthNavbar.js';
 import Footer from 'components/Footers/Footer.js';
 
-import { object } from 'prop-types';
+import { arrayOf, object } from 'prop-types';
 import auth0 from '../api/utils/auth0';
 
 export default function Profile({ auth, currentUser, connectedUser }) {
   // console.log({ auth, currentUser });
-  console.log(connectedUser);
-  console.log(currentUser);
-  console.log('@@@ connect user');
+  // console.log(connectedUser);
+  // console.log(currentUser);
+  console.log(auth);
 
-  const findUser = connectedUser?.findIndex((item) => item.following.userId === currentUser?.user?.sub);
+  const findUser = connectedUser?.findIndex((item) => item.following.user_id === currentUser?.user?.sub);
   const friends = connectedUser?.length;
   const [isConnect, setIsConnect] = useState(findUser >= 0);
 
@@ -189,20 +189,21 @@ export default function Profile({ auth, currentUser, connectedUser }) {
 Profile.propTypes = {
   auth: object,
   currentUser: object,
-  connectedUser: object,
+  connectedUser: arrayOf(object),
 };
 
 Profile.defaultProps = {
   auth: {},
   currentUser: {},
-  connectedUser: {},
+  connectedUser: [],
 };
 
 export async function getServerSideProps(context) {
   const session = await auth0.getSession(context.req);
+  console.log('[user_id]', context.query);
 
   // searched user
-  const { userId } = context.query;
+  const { user_id: userId } = context.query;
   const res = await fetch(`https://kodebaik.auth0.com/api/v2/users/${userId}`, {
     method: 'GET',
     headers: {
