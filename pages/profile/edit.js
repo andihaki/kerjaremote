@@ -25,6 +25,7 @@ export default function Edit({ auth, userProfile }) {
   const isRecruiter = auth?.user?.nickname?.includes('recruit') || auth?.user?.username?.includes('recruit') || auth?.user?.username?.includes('name');
 
   const handleSubmit = (evt) => {
+    setIsSubmit(true);
     // https://stackoverflow.com/questions/54147290/nextjs-form-data-isnt-sent-to-the-express-server/54148262
     evt.preventDefault();
     // return console.log(evt.target)
@@ -218,7 +219,7 @@ export default function Edit({ auth, userProfile }) {
               <button
                 disabled={isSubmit}
                 className={`${isSubmit ? 'disabled:opacity-50 bg-blue-500 hover:bg-blue-700' : 'bg-green-500 hover:bg-green-700'}  text-white font-bold py-2 px-4 rounded`}
-                onClick={() => setIsSubmit(true)}
+                onClick={handleSubmit}
                 type="submit"
               >
                 {isSubmit ? 'Loading...' : 'Submit'}
