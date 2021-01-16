@@ -37,7 +37,7 @@ module.exports = async (req, res) => {
   const collection = await db.collection('job_list');
 
   // Select the users collection from the database
-  const jobList = await collection.find({}).toArray();
+  const jobList = await collection.find({}).sort({ posting_date: -1 }).toArray();
 
   // Respond with a JSON string of all users in the collection
   res.status(200).json(jobList);

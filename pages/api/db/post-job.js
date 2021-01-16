@@ -28,6 +28,7 @@ handler.post(async (req, res) => {
     category: data.category || defaultData.category,
     region: data.region || defaultData.region,
     username: data.username || 'N.A',
+    posting_date: new Date(),
   };
   // console.log({ data })
 
